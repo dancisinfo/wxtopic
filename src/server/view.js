@@ -14,7 +14,8 @@ module.exports = function (app) {
   app.set('views', path.resolve(__dirname, '../web'))
 
   app.get('/', function (req, res) {
-    res.redirect(prefixUrl('/issues'))
+    //res.redirect(prefixUrl('/issues'))
+    res.redirect(prefixUrl('/issues/open'))
   })
   app.get('/issues', function (req, res) {
     res.send('Top Issues')
