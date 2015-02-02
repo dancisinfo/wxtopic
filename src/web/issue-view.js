@@ -14,17 +14,18 @@ $(function initPage() {
     e.preventDefault()
     if (submitted) return alert('稍安勿躁')
     var form = $form_comment.serializeJSON()
+    if (!form['text']) return
     var url = '../api/issues/' + issue.key + '/comments'
     $.post(url, form, function (d) {
       if (typeof d !== 'object' || !d.floor) {
         return alert('评论失败，为毛？')
       }
-      alert('评论成功，楼层: ' + d.floor)
       dbMyComments.push({
         floor: d.floor,
         issue_key: issue.key
       }).save()
       submitted = true
+      alert('评论成功，楼层: ' + d.floor)
       location.reload()
     })
   })

@@ -4,30 +4,32 @@
   <meta charset="utf-8">
   <title>我正在观摩 ##{{{issue.title}}}##</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+  <link rel="stylesheet" href="../static/dist/app/issue-view.css">
 </head>
 <body>
 <div class="container">
   <h1>{{issue.title}}</h1>
   <form id="form_comment">
-    <div>
-      <textarea rows="3" name="text" placeholder="参与评论"></textarea>
-    </div>
-    <div>
-      <button type="submit">发送</button>
+    <div class="control-group">
+      <textarea rows="2" name="text" placeholder="参与评论"></textarea>
+      <span>
+        <button type="submit">发送</button>
+      </span>
     </div>
   </form>
   {{#if comments}}
   <ul class="comment-list">
     {{#each comments}}
     <li class="comment-item">
-      <div>{{floor}}</div>
-      <div>{{text}}</div>
+      <label>{{floor}}</label>
+      <p>{{text}}</p>
     </li>
     {{/each}}
   </ul>
   {{else}}
-  <div>居然没人评论</div>
+  <aside>居然没人评论</aside>
   {{/if}}
+  <footer>&copy; 2015 <a href="../">微信话题墙</a></footer>
 </div>
 <script src="../static/dist/jquery.min.js"></script>
 <script src="../static/dist/jquery.serializejson.min.js"></script>
