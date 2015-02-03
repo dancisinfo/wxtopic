@@ -15,7 +15,7 @@ module.exports = function (app) {
 
   app.get('/', function (req, res) {
     //res.redirect(prefixUrl('/topics'))
-    res.redirect(prefixUrl('/topics/open'))
+    res.redirect(prefixUrl('/open'))
   })
   //app.get('/topics', function (req, res) {
   //  res.send('Top Topics')
@@ -28,7 +28,7 @@ module.exports = function (app) {
     })
   })
 
-  app.get('/topics/open', function (req, res) {
+  app.get('/open', dropPathSlash, function (req, res) {
     res.render('topic-open.hbs')
   })
 
@@ -64,7 +64,7 @@ function dropPathSlash(req, res, next) {
   var query = req._parsedUrl.query || ''
   if (/\/$/.test(pathname)) {
     var _url = pathname.replace(/\/$/, '') + query
-    return res.redirect(_url)
+    return res.redirect(prefixUrl(_url))
   }
   next()
 }

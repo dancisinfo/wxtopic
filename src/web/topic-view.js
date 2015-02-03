@@ -26,7 +26,7 @@ $(function initPage() {
     if (submitted) return alert('稍安勿躁')
     var form = $form_comment.serializeJSON()
     if (!form['text']) return
-    var url = '../api/topics/' + topic.key + '/comments'
+    var url = 'api/topics/' + topic.key + '/comments'
     $.post(url, form, function (d) {
       if (typeof d !== 'object' || !d.floor) {
         return alert('评论失败，为毛？')
