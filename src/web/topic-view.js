@@ -17,8 +17,8 @@ $(function initPage() {
   var myComment = dbMyComments
     .findLast({ topic_key: topic.key }).value()
   if (myComment) {
-    document.title = '我参与了 ##' + topic.title +
-      '## ，' + myComment.floor + '楼是我'
+    //document.title = '我参与了 ##' + topic.title +
+    //  '## ，' + myComment.floor + '楼是我'
   }
 
   $form_comment.on('submit', function (e) {
@@ -26,7 +26,7 @@ $(function initPage() {
     if (submitted) return alert('稍安勿躁')
     var form = $form_comment.serializeJSON()
     if (!form['text']) return
-    var url = '../api/topics/' + topic.key + '/comments'
+    var url = 'api/topics/' + topic.key + '/comments'
     $.post(url, form, function (d) {
       if (typeof d !== 'object' || !d.floor) {
         return alert('评论失败，为毛？')
