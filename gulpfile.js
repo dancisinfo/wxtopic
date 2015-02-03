@@ -1,6 +1,7 @@
 var gulp = require('gulp')
 var plumber = require('gulp-plumber')
 var less = require('gulp-less')
+var autoprefixer = require('gulp-autoprefixer')
 var del = require('del')
 
 gulp.task('misc', function () {
@@ -17,10 +18,12 @@ gulp.task('external', ['misc'])
 
 gulp.task('less', function () {
   gulp.src([
-    'src/web/**/*.less'
+    'src/web/topic-open.less',
+    'src/web/topic-view.less'
     ])
     .pipe(plumber())
     .pipe(less())
+    .pipe(autoprefixer())
     .pipe(gulp.dest('static/dist/app'))
 })
 gulp.task('js', function () {

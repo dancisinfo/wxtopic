@@ -1,7 +1,7 @@
 var uuid = require('node-uuid').v4
 var bodyParser = require('body-parser')
 var db = require('./db')
-var dbIssues = db.dbIssues
+var dbTopics = db.dbTopics
 var dbComments = db.dbComments
 var tss = require('./lib/tss')
 
@@ -11,23 +11,23 @@ module.exports = function (app) {
     extended: true
   }))
 
-  app.post('/api/issues/:key/comments', verify, function (req, res, next) {
-    var issue = dbIssues.find({
+  app.post('/api/topics/:key/comments', verify, function (req, res, next) {
+    var topic = dbTopics.find({
       key: req.params.key
     }).value()
-    if (!issue) {
+    if (!topic) {
       return next(new Error(
-        'issue not found with key: ' + req.params.key
+        'topic not found with key: ' + req.params.key
       ))
     }
     var followed = dbComments.filter({
-      issue_id: issue.id
+      topic_id: topic.id
     }).last().value()
     var nextFloor = followed ? followed.floor + 1 : 1
     var comment = {
       id: getNextId(dbComments),
       floor: nextFloor,
-      issue_id: issue.id,
+      topic_id: topic.id,
       text: req.body.text,
       ip: req.ip,
       timestamp: tss()
@@ -37,22 +37,22 @@ module.exports = function (app) {
     res.send({ floor: comment.floor })
   })
 
-  app.post('/api/issues', verify, function (req, res) {
-    var issue = {
-      id: getNextId(dbIssues),
+  app.post('/api/topics', verify, function (req, res) {
+    var topic = {
+      id: getNextId(dbTopics),
       key: uuid(),
       title: req.body.title,
       ip: req.ip,
       timestamp: tss()
     }
-    dbIssues.push(issue)
-    var ret = { key: issue.key }
+    dbTopics.push(topic)
+    var ret = { key: topic.key }
     
     if (req.body.comment) {
       var comment = {
         id: getNextId(dbComments),
         floor: 1,
-        issue_id: issue.id,
+        topic_id: topic.id,
         text: req.body.comment,
         ip: req.ip,
         timestamp: tss()

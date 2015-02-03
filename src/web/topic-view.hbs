@@ -2,15 +2,16 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>我正在观摩 ##{{{issue.title}}}##</title>
+  <title>我正在观摩 ##{{topic.title}}##</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-  <link rel="stylesheet" href="../static/dist/app/issue-view.css">
+  <link rel="stylesheet" href="../static/dist/app/topic-view.css">
 </head>
 <body>
+<img style="position:absolute;left:-999px;top:-999px" src="../static/logo.jpg">
 <div class="container">
-  <h1>{{issue.title}}</h1>
+  <h1>{{topic.title}}</h1>
   <form id="form_comment">
-    <div class="control-group">
+    <div class="input-group">
       <textarea rows="2" name="text" placeholder="参与评论"></textarea>
       <span>
         <button type="submit">发送</button>
@@ -21,8 +22,8 @@
   <ul class="comment-list">
     {{#each comments}}
     <li class="comment-item">
-      <label>{{floor}}</label>
-      <p>{{text}}</p>
+      <div><label>{{floor}}</label></div>
+      <div><p>{{text}}</p></div>
     </li>
     {{/each}}
   </ul>
@@ -36,11 +37,11 @@
 <script src="../static/dist/lodash.min.js"></script>
 <script src="../static/dist/app/db.js"></script>
 <script>
-  var issue = {
-    key: '{{issue.key}}',
-    title: '{{issue.title}}'
+  var topic = {
+    key: '{{topic.key}}',
+    title: '{{topic.title}}'
   }
 </script>
-<script src="../static/dist/app/issue-view.js"></script>
+<script src="../static/dist/app/topic-view.js"></script>
 </body>
 </html>
