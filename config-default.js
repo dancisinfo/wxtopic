@@ -2,7 +2,7 @@ var path = require('path')
 
 module.exports = {
 
-  dbFile: path.resolve(__dirname, '../db.json'),
+  dbFile: path.resolve(__dirname, 'db.json'),
 
   wxAppId: 'wxXXXXXXXXXXXXXXXX',
   wxAppSecret: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
