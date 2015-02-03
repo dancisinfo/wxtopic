@@ -15,7 +15,7 @@ module.exports = function (app) {
     var topic = dbTopics.find({
       key: req.params.key
     }).value()
-    if (!topic) {
+    if (!topic || topic._del) {
       return next(new Error(
         'topic not found with key: ' + req.params.key
       ))

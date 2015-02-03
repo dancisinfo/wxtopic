@@ -22,10 +22,12 @@
   {{#if comments}}
   <ul class="comment-list">
     {{#each comments}}
+    {{#if _del}}{{else}}
     <li class="comment-item">
       <div><label>{{floor}}</label></div>
       <div><p>{{text}}</p></div>
     </li>
+    {{/if}}
     {{/each}}
   </ul>
   {{else}}
