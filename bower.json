@@ -1,5 +1,5 @@
 {
-  "name": "wx-wall",
+  "name": "wxtopic",
   "private": true,
   "dependencies": {
     "lodash": "~2.4.1",
