@@ -17,8 +17,8 @@ $(function initPage() {
   var myComment = dbMyComments
     .findLast({ topic_key: topic.key }).value()
   if (myComment) {
-    document.title = '我参与了 ##' + topic.title +
-      '## ，' + myComment.floor + '楼是我'
+    //document.title = '我参与了 ##' + topic.title +
+    //  '## ，' + myComment.floor + '楼是我'
   }
 
   $form_comment.on('submit', function (e) {
