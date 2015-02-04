@@ -13,9 +13,9 @@ module.exports = function (app) {
   app.set('view engine', 'handlebars')
   app.set('views', path.resolve(__dirname, '../web'))
 
-  app.get('/', function (req, res) {
+  app.get('/', addPathSlash, function (req, res) {
     //res.redirect(prefixUrl('/topics'))
-    res.redirect(prefixUrl('/open'))
+    res.redirect('open')
   })
   //app.get('/topics', function (req, res) {
   //  res.send('Top Topics')
@@ -49,25 +49,24 @@ module.exports = function (app) {
       topic: topic
     })
   })
-
-  app.get('/wxtest', dropPathSlash, function (req, res, next) {
-    wx.getJsApiSign(req, function (e, d) {
-      if (e) return next(e)
-      res.render('wxtest.hbs', { wxSign: d })
-    })
-  })
 }
 
 
+function addPathSlash(req, res, next) {
+  var pathname = req._parsedUrl.pathname
+  var search = req._parsedUrl.search || ''
+  if (pathname === '/') return next()
+  if (pathname.slice(-1) === '/') return next()
+  var last = pathname.split('/').slice(-1)[0]
+  var relative = last + '/' + search
+  res.redirect(relative)
+}
 function dropPathSlash(req, res, next) {
   var pathname = req._parsedUrl.pathname
-  var query = req._parsedUrl.query || ''
-  if (/\/$/.test(pathname)) {
-    var _url = pathname.replace(/\/$/, '') + query
-    return res.redirect(prefixUrl(_url))
-  }
-  next()
-}
-function prefixUrl(seg) {
-  return config.urlPrefix + seg
+  var search = req._parsedUrl.search || ''
+  if (pathname === '/') return next()
+  if (pathname.slice(-1) !== '/') return next()
+  var last = pathname.split('/').slice(-2)[0]
+  var relative = '../' + last + search
+  res.redirect(relative)
 }
